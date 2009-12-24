@@ -1,0 +1,49 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   i18n_domain="zojax.personal.tagging">
+
+  <!-- configlet -->
+  <zojax:configlet
+     name="principals.tagging"
+     title="User's personal tags"
+     description="This area allows you to configure user tags ."
+     class=".configlet.PersonalTagsConfiglet"
+     schema=".interfaces.IPersonalTagsConfiglet"
+     permission="zojax.Configure" />
+
+  <!-- preference group -->
+  <zojax:preferenceGroup
+     id="personaltags"
+     title="Personal tags"
+     description="These are all the preferences related to user personal tags."
+     schema=".interfaces.IPersonalTags"
+     class=".preference.PersonalTags"
+     tests="zojax.preferences.utils.isUser" />
+     
+  <subscriber handler=".configlet.taggableModified" />
+  
+  <adapter factory=".preference.ContentPersonalTags" />
+  
+  <!-- overview workspace -->
+  <adapter
+     name="tags"
+     factory=".workspace.PersonalTagsWorkspaceFactory" />
+     
+  <utility
+     name="tags"
+     factory=".workspace.PersonalTagsWorkspaceDescription" />
+
+  <class class=".workspace.PersonalTagsWorkspaceFactory">
+    <require
+       permission="zope.View"
+       interface=".interfaces.IPersonalTagsWorkspace" />
+  </class>
+  
+  <!-- portlets -->
+  <include package=".portlets" />
+  
+  <!-- browser views -->
+  <include package=".browser" />
+
+</configure>

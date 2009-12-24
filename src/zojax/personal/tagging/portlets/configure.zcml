@@ -1,0 +1,42 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   i18n_domain="zojax.personal.favorites">
+
+  <!-- portlet managers -->
+  <zojax:portletManager
+     name="columns.left"
+     title="Left column portlets"
+     for="..interfaces.IPersonalTagsWorkspace"
+     class="zojax.personal.space.portletmanager.PortletManager"
+     portlettype="zojax.personal.space.interfaces.IPersonalWorkspacePortlet" />
+
+  <zojax:portletManager
+     name="columns.right"
+     title="Right column portlets"
+     for="..interfaces.IPersonalTagsWorkspace"
+     schema=".interfaces.IPersonalTagsPortletManager"
+     class="zojax.personal.space.portletmanager.PortletManager"
+     portlettype="zojax.personal.space.interfaces.IPersonalWorkspacePortlet" />
+
+  <!-- your favorites portlet -->
+  <zojax:portlet
+     title="My Tags"
+     name="personal.tagging.personaltags"
+     type="zojax.personal.space.interfaces.IPersonalWorkspacePortlet"
+     schema=".interfaces.IPersonalTagsPortlet"
+     class=".tags.PersonalTagsPortlet" />
+
+  <zojax:portlet
+     title="My Tags"
+     name="personal.tagging.personaltags"
+     schema=".interfaces.IPersonalTagsPortlet"
+     class=".tags.PersonalTagsPortlet" />
+
+  <zojax:pagelet
+     type="portlet.view"
+     for=".interfaces.IPersonalTagsPortlet"
+     class=".tags.PersonalTagsPortletView"
+     template="tags.pt" />
+
+</configure>

@@ -1,0 +1,29 @@
+<h1>My personal tags</h1>
+<br />
+
+<div class="z-tag-could" tal:condition="view/tags">
+  <tal:block tal:repeat="item view/tags">
+    <span tal:define="bold python:item['weight'] > 175 and 'font-weight: bold;;'or'';"
+	  tal:attributes="style string:white-space: nowrap;; ${bold} font-size: ${item/weight}%;;;"><a tal:content="item/tag" tal:attributes="href string:?tag=${item/tag}"></a></span>
+  </tal:block>
+</div>
+<div tal:condition="not:view/tags">
+  There is no 'tags'.
+</div>
+
+
+<tal:block condition="view/showContent|nothing">
+  <br /><br />
+  <h1>Contents for tag: <tal:block content="request/tag"/></h1>
+
+  <tal:block condition="not:view/contents">
+    There are no contents for this tag.
+  </tal:block>
+  <ul class="z-listing" tal:condition="view/contents">
+    <li tal:repeat="item view/contents">
+      <a tal:attributes="href string:${item/@@absolute_url}/"
+	 tal:content="item/title"></a>
+      <div class="z-listing-details" tal:content="item/description"></div>
+    </li>
+  </ul>
+</tal:block>

@@ -1,0 +1,16 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zope">
+
+   <!-- portlet managers -->
+  <zojax:portletManager
+     name="columns.left"
+     title="Profile left column"
+     for="zojax.personal.tagging.interfaces.IPersonalTagsWorkspace"
+     schema=".interfaces.IPersonalTagsLeftPortletManager"
+     class="zojax.personal.space.portletmanager.PortletManager"
+     portlettype="zojax.personal.space.interfaces.IPersonalWorkspacePortlet" />
+
+</configure>

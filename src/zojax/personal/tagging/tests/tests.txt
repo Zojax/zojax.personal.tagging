@@ -1,0 +1,172 @@
+=============
+Browser tests
+=============
+
+    >>> from zope import component, interface, event
+    >>> from zope.testbrowser.testing import Browser
+    >>> from zope.app.testing.functional import sync
+    >>> from zope.lifecycleevent import ObjectCreatedEvent
+    >>> from zope.app.intid import IntIds
+    >>> from zope.app.intid.interfaces import IIntIds
+    >>> from zope.app.testing.functional import getRootFolder
+    >>> from zope.app.security.interfaces import IAuthentication
+    >>> from zojax.catalog.catalog import Catalog, ICatalog
+    >>> from zojax.personal.space.manager import PersonalSpaceManager, \
+    ... IPersonalSpaceManager
+    >>> from zojax.content.tagging.interfaces import IContentTags
+    >>> from zojax.personal.tagging.interfaces import IPersonalTagsConfiglet, \
+    ... IPersonalTaggable, IPersonalTags, IContentPersonalTags
+
+    >>> root = getRootFolder()
+    >>> auth = component.getUtility(IAuthentication)
+
+    >>> content11 = root['content11']
+    >>> content12 = root['content12']
+    >>> content21 = root['content21']
+    >>> content22 = root['content22']
+    >>> configlet = component.getUtility(IPersonalTagsConfiglet)
+
+    >>> admin = Browser()
+    >>> admin.addHeader("Authorization", "Basic mgr:mgrpw")
+    >>> admin.handleErrors = False
+
+Browsers
+
+    >>> user1 = Browser()
+    >>> user1.addHeader("Authorization", "Basic user1:userpw")
+    >>> user1.handleErrors = False
+    >>> user1.open('http://localhost/people/')
+    >>> user1.getLink('Personal space').click()
+
+let's mark content as taggable
+
+    >>> interface.alsoProvides(root['content11'], IPersonalTaggable)
+    >>> principal = auth.getPrincipal('zope.user1')
+    >>> component.getMultiAdapter((content11, principal), IContentPersonalTags).tags
+    ()
+    >>> component.getMultiAdapter((content11, principal), IContentPersonalTags).tags = None
+    >>> component.getMultiAdapter((content11, principal), IContentPersonalTags).tags
+    ()
+
+    >>> user1.open('http://localhost/content11/context.html')
+    >>> print user1.contents
+    <html>
+    ...
+    <label for="form-widgets-tags"
+             title="Think of a tag as a simple category name. You can categorize your documents, files, and blog posts with any word or words that makes sense.">Tags</label>
+    <div class="z-form-help">Think of a tag as a simple category name. You can categorize your documents, files, and blog posts with any word or words that makes sense.</div>
+    <div>
+    <input type="text" id="form-widgets-tags"
+           name="form.widgets.tags"
+           class="z-widget-tags tagsfield-field" value="" />
+    <div class="z-form-help">
+      Use commas to separate multiple tags.
+    </div>
+    ...
+    </html>
+
+    >>> user1.getControl('Tags').value = 'tag1, tag2, tag3'
+    >>> user1.getControl(name="content.edit.buttons.save").click()
+
+    >>> from transaction import commit
+    >>> commit()
+
+    >>> component.getMultiAdapter((content11, principal), IContentPersonalTags).tags
+    OOSet([u'tag1', u'tag2', u'tag3'])
+
+    >>> IContentTags(content11).tags
+    (u'tag1', u'tag2', u'tag3')
+
+    >>> list(configlet.getEngine('zope.user1').getTagCloud())
+    [(100.0, u'tag1'), (100.0, u'tag2'), (100.0, u'tag3')]
+
+We see tags in tags personal workspace
+
+    >>> user1.open('http://localhost/people/')
+    >>> user1.getLink('Personal space').click()
+    >>> user1.getLink('Tags').click()
+    >>> print user1.contents
+    <html>
+    ...
+    <div id="z-portal-workspace"><div id="z-portal-viewspace"><div id="z-content"><h1>My personal tags</h1><br /><div class="z-tag-could">
+      <span style="white-space: nowrap; font-weight: bold;; font-size: 200.0%"><a href="?tag=tag1">tag1</a></span>
+       <span style="white-space: nowrap; font-weight: bold;; font-size: 200.0%"><a href="?tag=tag2">tag2</a></span>
+       <span style="white-space: nowrap; font-weight: bold;; font-size: 200.0%"><a href="?tag=tag3">tag3</a></span>
+    <BLANKLINE>
+    </div></div></div></div>
+    ...
+    </html>
+
+    >>> user1.getLink(url='?tag=tag1').click()
+    >>> print user1.contents
+    <html>
+    ...
+    <div id="z-portal-workspace"><div id="z-portal-viewspace"><div id="z-content"><h1>My personal tags</h1><br /><div class="z-tag-could">
+      <span style="white-space: nowrap; font-weight: bold;; font-size: 200.0%"><a href="?tag=tag1">tag1</a></span>
+       <span style="white-space: nowrap; font-weight: bold;; font-size: 200.0%"><a href="?tag=tag2">tag2</a></span>
+       <span style="white-space: nowrap; font-weight: bold;; font-size: 200.0%"><a href="?tag=tag3">tag3</a></span>
+    </div><br /><br />
+      <h1>Contents for tag: tag1</h1>
+      <ul class="z-listing">
+        <li>
+          <a href="http://localhost/content11/"></a>
+          <div class="z-listing-details"></div>
+        </li>
+      </ul>
+    </div></div></div>
+    ...
+    </html>
+
+We see tags in portlet in profile
+
+    >>> user1.open('http://localhost/people/')
+    >>> user1.getLink('Personal space').click()
+    >>> user1.getLink('Tags').click()
+    >>> print user1.contents
+    <html>
+    ...
+    ...<div class="z-portlet portlet-personal-tagging">
+      <h2 class="z-portlet-header">
+        <a class="z-portlet-feed" title="Tags rss feed" href="http://localhost/@@feeds/tags">
+          <img src="http://localhost/@@/rss-icon.png" />
+        </a>
+        Tags
+    </h2>
+      <div class="z-portlet-body">
+        <div class="z-portlet-item">
+          <span style="font-size: 200.00%">
+      <a href="http://localhost/@@tags/global/tag3/">tag3</a>
+          </span> <span style="font-size: 200.00%">
+      <a href="http://localhost/@@tags/global/tag2/">tag2</a>
+          </span> <span style="font-size: 200.00%">
+      <a href="http://localhost/@@tags/global/tag1/">tag1</a>
+          </span>
+        </div>
+      </div>
+      <div class="z-portlet-footer">
+        <a href="http://localhost/@@tags/global/">More tags...</a>
+      </div>
+    </div></div>
+    ...
+    </html>
+
+
+We have personal tags subform if we disable global tags in configlet
+
+    >>> configlet.useGlobalTags = False
+    >>> user1.open('http://localhost/content11/context.html')
+    >>> print user1.contents
+    <html>
+    ...
+    <label for="personal-tags-widgets-tags" title="Think of a tag as a simple category name. You can categorize your documents, files, and blog posts with any word or words that makes sense.">Personal tags</label>
+      <div class="z-form-help">Think of a tag as a simple category name. You can categorize your documents, files, and blog posts with any word or words that makes sense.</div>
+      <div>
+    <input type="text" id="personal-tags-widgets-tags"
+           name="personal.tags.widgets.tags"
+           class="z-widget-personal-tags personaltagsfield-field"
+           value="tag1, tag2, tag3" />
+    <div class="z-form-help">
+      Use commas to separate multiple tags.
+    </div>
+    ...
+    </html>
