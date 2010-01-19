@@ -142,7 +142,8 @@ class PersonalTagsConfiglet(Configlet):
 
 @component.adapter(IContentTaggable, IObjectModifiedEvent)
 def taggableModified(ob, event):
-    if not component.getUtility(IPersonalTagsConfiglet).useGlobalTags:
-        return
-    tags = IContentTags(ob).tags
-    component.getMultiAdapter((ob, getPrincipal()), IContentPersonalTags).tags = tags
+    if component.getUtility(IPersonalTagsConfiglet).useGlobalTags:
+        tags = IContentTags(ob).tags
+        principal = getPrincipal()
+        if principal is not None:
+            component.getMultiAdapter((ob, principal), IContentPersonalTags).tags = tags
