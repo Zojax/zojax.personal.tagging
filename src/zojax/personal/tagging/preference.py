@@ -20,6 +20,7 @@ from rwproperty import getproperty, setproperty
 from zope import interface
 from zope.security.interfaces import IPrincipal
 from zope.security.proxy import removeSecurityProxy
+from zope.proxy import removeAllProxies
 from zope.component import getUtility, adapts
 from zope.app.intid.interfaces import IIntIds
 
@@ -58,7 +59,7 @@ class ContentPersonalTags(BasePersonalTags):
 
     def __init__(self, context, principal):
         self.context, self.__principal__ = context, principal
-        self.id = getUtility(IIntIds).getId(removeSecurityProxy(context))
+        self.id = getUtility(IIntIds).getId(removeAllProxies(context))
 
     @getproperty
     def tags(self):
