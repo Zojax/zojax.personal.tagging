@@ -24,7 +24,6 @@ from zojax.authentication.utils import getPrincipal
 from zojax.controlpanel.configlet import Configlet
 from zojax.tagging.engine import TaggingEngine
 from zojax.content.tagging.interfaces import IContentTaggable, IContentTags
-from zojax.content.draft.interfaces import IDraftedContent
 
 from interfaces import IPersonalTagsConfiglet, IContentPersonalTags, \
                        IPersonalTaggable
@@ -143,8 +142,6 @@ class PersonalTagsConfiglet(Configlet):
 
 @component.adapter(IContentTaggable, IObjectModifiedEvent)
 def taggableModified(ob, event):
-    if IDraftedContent.providedBy(ob):
-        return
     if component.getUtility(IPersonalTagsConfiglet).useGlobalTags:
         tags = IContentTags(ob).tags
         principal = getPrincipal()
