@@ -11,6 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
+from zope.app.security.interfaces import IUnauthenticatedPrincipal
 """
 
 $Id$
@@ -20,6 +21,7 @@ from zope.proxy import removeAllProxies
 from zope.app.intid.interfaces import IIntIds
 
 from zojax.personal.tagging.interfaces import IPersonalTags
+
 
 
 class UserTags(object):
@@ -36,6 +38,8 @@ class UserTags(object):
             self.tags = prefs.getTags(self.oid)
 
     def isAvailable(self):
+        if IUnauthenticatedPrincipal.providedBy(self.request.principal):
+            return False
         if self.oid is None:
             return False
         else:
