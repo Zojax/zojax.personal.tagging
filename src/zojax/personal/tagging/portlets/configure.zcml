@@ -1,7 +1,7 @@
 <configure
    xmlns="http://namespaces.zope.org/zope"
    xmlns:zojax="http://namespaces.zope.org/zojax"
-   i18n_domain="zojax.personal.favorites">
+   i18n_domain="zojax.personal.tagging">
 
   <!-- portlet managers -->
   <zojax:portletManager

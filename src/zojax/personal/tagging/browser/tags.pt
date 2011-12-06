@@ -1,6 +1,10 @@
-<div class="z-personal-tagging">
+<div class="z-personal-tagging" i18n:translate="">
   My tags:
-  <tal:block tal:repeat="tag view/tags" tal:content="tag" />
-  <tal:block tal:condition="not:view/tags">no tags</tal:block>
-  <a href="changePersonalTags.html">Change</a>
+  <tal:block i18n:name="tags" tal:repeat="tag view/tags" tal:content="tag" />
+  <tal:block i18n:name="no_tags">
+    <tal:block tal:condition="not:view/tags" i18n:translate="">no tags</tal:block>
+  </tal:block>
+  <tal:block i18n:name="link_change">
+    <a href="changePersonalTags.html" i18n:translate="">Change</a>
+  </tal:block>
 </div>
