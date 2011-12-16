@@ -1,0 +1,145 @@
+##############################################################################
+#
+# Copyright (c) 2003-2004 Zope Corporation and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+##############################################################################
+msgid ""
+msgstr ""
+"Project-Id-Version: Development/Unknown\n"
+"POT-Creation-Date: Sun Dec 11 11:02:51 2011\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Zope 3 Developers <zope3-dev@zope.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: zope/app/locales/extract.py\n"
+
+#: src/zojax/personal/tagging/browser/modify.py:32
+#: src/zojax/personal/tagging/workspace.py:39
+#: src/zojax/personal/tagging/workspace.py:52
+#: src/zojax/personal/tagging/workspace.py:80
+#: src/zojax/personal/tagging/portlets/tags.pt:8
+msgid "Tags"
+msgstr ""
+
+#: src/zojax/personal/tagging/browser/modify.py:33
+msgid "Enter your tags."
+msgstr ""
+
+#: src/zojax/personal/tagging/browser/modify.py:47
+msgid "Save"
+msgstr ""
+
+#: src/zojax/personal/tagging/browser/modify.py:57
+msgid "Tags have been changed."
+msgstr ""
+
+#: src/zojax/personal/tagging/browser/preference.pt:1
+msgid "My personal tags"
+msgstr ""
+
+#: src/zojax/personal/tagging/browser/preference.pt:10
+msgid "There is no 'tags'."
+msgstr ""
+
+#: src/zojax/personal/tagging/browser/preference.pt:17
+msgid "Contents for tag: ${tag}"
+msgstr ""
+
+#: src/zojax/personal/tagging/browser/tags.pt:5
+msgid "no tags"
+msgstr ""
+
+#: src/zojax/personal/tagging/browser/tags.pt:7
+msgid "My tags: ${tags} ${no_tags} ${link_change}"
+msgstr ""
+
+#: src/zojax/personal/tagging/browser/tags.pt:8
+msgid "Change"
+msgstr ""
+
+#: src/zojax/personal/tagging/configure.zcml:16
+msgid "These are all the preferences related to user personal tags."
+msgstr ""
+
+#: src/zojax/personal/tagging/configure.zcml:7
+msgid "User's personal tags"
+msgstr ""
+
+#: src/zojax/personal/tagging/configure.zcml:7
+msgid "This area allows you to configure user tags ."
+msgstr ""
+
+#: src/zojax/personal/tagging/interfaces.py:49
+#: src/zojax/personal/tagging/configure.zcml:16
+#: src/zojax/personal/tagging/browser/configure.zcml:16
+msgid "Personal tags"
+msgstr ""
+
+#: src/zojax/personal/tagging/interfaces.py:50
+msgid "Think of a tag as a simple category name. You can categorize your documents, files, and blog posts with any word or words that makes sense."
+msgstr ""
+
+#: src/zojax/personal/tagging/interfaces.py:57
+msgid "Use global tags as personal"
+msgstr ""
+
+#: src/zojax/personal/tagging/interfaces.py:58
+msgid "If checked global tags will be used to store personal tags when editing"
+msgstr ""
+
+#: src/zojax/personal/tagging/portlets/configure.zcml:14
+msgid "Right column portlets"
+msgstr ""
+
+#: src/zojax/personal/tagging/portlets/configure.zcml:23
+#: src/zojax/personal/tagging/portlets/configure.zcml:30
+msgid "My Tags"
+msgstr ""
+
+#: src/zojax/personal/tagging/portlets/configure.zcml:7
+msgid "Left column portlets"
+msgstr ""
+
+#: src/zojax/personal/tagging/portlets/interfaces.py:28
+#: src/zojax/personal/tagging/tests/interfaces.py:28
+msgid "Portlets"
+msgstr ""
+
+#: src/zojax/personal/tagging/portlets/interfaces.py:37
+msgid "Label"
+msgstr ""
+
+#: src/zojax/personal/tagging/portlets/interfaces.py:41
+msgid "Tags count"
+msgstr ""
+
+#: src/zojax/personal/tagging/portlets/interfaces.py:42
+msgid "Number of tags in portlet."
+msgstr ""
+
+#: src/zojax/personal/tagging/portlets/tags.pt:21
+msgid "There are no tags."
+msgstr ""
+
+#: src/zojax/personal/tagging/portlets/tags.pt:27
+msgid "More tags..."
+msgstr ""
+
+#: src/zojax/personal/tagging/portlets/tags.pt:4
+msgid "Tags rss feed"
+msgstr ""
+
+#: src/zojax/personal/tagging/workspace.py:53
+msgid "Personal tags."
+msgstr ""
+
