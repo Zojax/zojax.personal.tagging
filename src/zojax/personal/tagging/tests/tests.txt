@@ -52,16 +52,22 @@ let's mark content as taggable
     >>> print user1.contents
     <html>
     ...
-    <label for="form-widgets-tags"
-             title="Think of a tag as a simple category name. You can categorize your documents, files, and blog posts with any word or words that makes sense.">Tags</label>
-    <div class="z-form-help">Think of a tag as a simple category name. You can categorize your documents, files, and blog posts with any word or words that makes sense.</div>
-    <div>
+        <div class="z-form-field">
+      <label for="form-widgets-tags" title="Think of a tag as a simple category name. You can categorize your documents, files, and blog posts with any word or words that makes sense.">Tags</label>
+      <div class="z-form-help">Think of a tag as a simple category name. You can categorize your documents, files, and blog posts with any word or words that makes sense.</div>
+      <div>
+    <div class="tag-widget">
     <input type="text" id="form-widgets-tags"
            name="form.widgets.tags"
            class="z-widget-tags tagsfield-field" value="" />
     <div class="z-form-help">
       Use commas to separate multiple tags.
     </div>
+    </div>
+    <div class="help-snippet">
+      <h4>TAGS - Important Tips</h4>
+      <p>Tags are simple category names like "Shipping" or "event". Tags will help you organize and find everything you add to your blog, as well as related information on other blogs.</p>
+      You can include just one tag or separate multiple tags with commas.
     ...
     </html>
 
@@ -88,11 +94,10 @@ We see tags in tags personal workspace
     >>> print user1.contents
     <html>
     ...
-    <div id="z-portal-workspace"><div id="z-portal-viewspace"><div id="z-content"><h1>My personal tags</h1><br /><div class="z-tag-could">
+    	<div id="z-portal-workspace"><div id="z-portal-viewspace"><div id="z-content"><h1>My personal tags</h1><br /><div class="z-tag-could">
       <span style="white-space: nowrap; font-weight: bold;; font-size: 200.0%"><a href="?tag=tag1">tag1</a></span>
        <span style="white-space: nowrap; font-weight: bold;; font-size: 200.0%"><a href="?tag=tag2">tag2</a></span>
        <span style="white-space: nowrap; font-weight: bold;; font-size: 200.0%"><a href="?tag=tag3">tag3</a></span>
-    <BLANKLINE>
     </div></div></div></div>
     ...
     </html>
@@ -101,11 +106,12 @@ We see tags in tags personal workspace
     >>> print user1.contents
     <html>
     ...
-    <div id="z-portal-workspace"><div id="z-portal-viewspace"><div id="z-content"><h1>My personal tags</h1><br /><div class="z-tag-could">
+    	<div id="z-portal-workspace"><div id="z-portal-viewspace"><div id="z-content"><h1>My personal tags</h1><br /><div class="z-tag-could">
       <span style="white-space: nowrap; font-weight: bold;; font-size: 200.0%"><a href="?tag=tag1">tag1</a></span>
        <span style="white-space: nowrap; font-weight: bold;; font-size: 200.0%"><a href="?tag=tag2">tag2</a></span>
        <span style="white-space: nowrap; font-weight: bold;; font-size: 200.0%"><a href="?tag=tag3">tag3</a></span>
-    </div><br /><br />
+    </div>
+      <br /><br />
       <h1>Contents for tag: tag1</h1>
       <ul class="z-listing">
         <li>
@@ -113,7 +119,6 @@ We see tags in tags personal workspace
           <div class="z-listing-details"></div>
         </li>
       </ul>
-    </div></div></div>
     ...
     </html>
 
@@ -125,13 +130,8 @@ We see tags in portlet in profile
     >>> print user1.contents
     <html>
     ...
-    ...<div class="z-portlet portlet-personal-tagging">
-      <h2 class="z-portlet-header">
-        <a class="z-portlet-feed" title="Tags rss feed" href="http://localhost/@@feeds/tags">
-          <img src="http://localhost/@@/rss-icon.png" />
-        </a>
-        Tags
-    </h2>
+    ...Tags
+    ...
       <div class="z-portlet-body">
         <div class="z-portlet-item">
           <span style="font-size: 200.00%">
@@ -145,8 +145,6 @@ We see tags in portlet in profile
       </div>
       <div class="z-portlet-footer">
         <a href="http://localhost/@@tags/global/">More tags...</a>
-      </div>
-    </div></div>
     ...
     </html>
 
